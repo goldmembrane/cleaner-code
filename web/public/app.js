@@ -48,7 +48,7 @@ function handlePaddleEvent(event) {
       console.log('Checkout closed');
       break;
     case 'checkout.error':
-      showToast('결제 처리 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+      showToast('An error occurred during checkout. Please try again.', 'error');
       break;
   }
 }
@@ -59,7 +59,7 @@ function handleCheckout(plan) {
   const priceId = PADDLE_CONFIG.prices[plan]?.[period];
 
   if (!priceId || priceId.includes('placeholder')) {
-    showToast('Paddle 설정이 필요합니다. PADDLE_CONFIG에 실제 Price ID를 입력하세요.', 'error');
+    showToast('Paddle configuration required. Please set valid Price IDs.', 'error');
     return;
   }
 
@@ -81,7 +81,7 @@ function handleCheckout(plan) {
 
 // ===== Free Plan Handler =====
 function handleFree() {
-  showToast('GitHub에서 cleaner-code를 설치하고 무료로 시작하세요!', 'success');
+  showToast('Install cleaner-code from GitHub and start for free!', 'success');
   setTimeout(() => {
     window.open('https://github.com/goldmembrane/cleaner-code', '_blank');
   }, 1500);
@@ -89,7 +89,7 @@ function handleFree() {
 
 // ===== Checkout Complete =====
 function handleCheckoutComplete(data) {
-  showToast('구독이 완료되었습니다! API 키가 이메일로 발송됩니다.', 'success');
+  showToast('Subscription complete! Your API key will be sent via email.', 'success');
 
   // Track conversion (optional analytics)
   console.log('Checkout completed:', {
@@ -146,7 +146,7 @@ function initLogin() {
   if (loginBtn) {
     loginBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      showToast('로그인 기능은 곧 제공됩니다.', 'info');
+      showToast('Sign-in feature coming soon.', 'info');
     });
   }
 }
