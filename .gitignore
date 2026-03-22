@@ -7,3 +7,6 @@ dist/
 # ML model artifacts (too large for git)
 ml/models/
 ml/data/
+
+# Cloudflare Pages build output
+deploy/cloudflare/build/

@@ -10,8 +10,8 @@ WORKDIR /app
 # Python dependencies
 RUN python3 -m venv /app/venv
 ENV PATH="/app/venv/bin:$PATH"
-RUN pip install --no-cache-dir transformers torch --index-url https://download.pytorch.org/whl/cpu && \
-    pip install --no-cache-dir onnxruntime
+RUN pip install --no-cache-dir transformers onnxruntime && \
+    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
 # Node dependencies
 COPY package.json package-lock.json ./

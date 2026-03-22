@@ -1,0 +1,7 @@
+node_modules/
+web/
+deploy/cloudflare/
+.git/
+src/
+*.ts
+!dist/**
