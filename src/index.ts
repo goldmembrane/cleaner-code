@@ -9,6 +9,123 @@ import * as path from "path";
 import { Scanner, Finding, ScanResult } from "./types";
 import { collectFiles, buildSummary, formatSummary } from "./utils";
 
+// ===== API Key & Usage Management =====
+const API_KEY_ENV = "CLEANER_API_KEY";
+const API_VALIDATE_URL =
+  process.env.API_VALIDATE_URL || "https://cleanercode.dev/api/validate-key";
+const USAGE_URL =
+  process.env.USAGE_URL || "https://cleanercode.dev/api/usage";
+const PRICING_URL = "https://cleanercode.dev/#pricing";
+
+// Free tier tracking (local, resets on restart)
+let freeUsageCount = 0;
+const FREE_TIER_LIMIT = 10;
+
+interface QuotaInfo {
+  authorized: boolean;
+  plan: string;
+  remaining: number;
+  limit: number;
+}
+
+async function checkQuota(): Promise<QuotaInfo> {
+  const apiKey = process.env[API_KEY_ENV];
+
+  // No API key → free tier
+  if (!apiKey) {
+    freeUsageCount++;
+    return {
+      authorized: freeUsageCount <= FREE_TIER_LIMIT,
+      plan: "free",
+      remaining: Math.max(0, FREE_TIER_LIMIT - freeUsageCount),
+      limit: FREE_TIER_LIMIT,
+    };
+  }
+
+  // Has API key → validate remotely
+  try {
+    const resp = await fetch(API_VALIDATE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ apiKey }),
+    });
+    const data = await resp.json() as any;
+
+    if (!data.valid) {
+      return { authorized: false, plan: "invalid", remaining: 0, limit: 0 };
+    }
+
+    return {
+      authorized: data.remaining > 0,
+      plan: data.plan,
+      remaining: data.remaining,
+      limit: data.limit,
+    };
+  } catch {
+    // API unreachable → allow with warning
+    return { authorized: true, plan: "offline", remaining: -1, limit: -1 };
+  }
+}
+
+async function recordUsage(): Promise<void> {
+  const apiKey = process.env[API_KEY_ENV];
+  if (!apiKey) return;
+
+  try {
+    await fetch(USAGE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ apiKey, action: "ai_analyze" }),
+    });
+  } catch {
+    // Silent fail
+  }
+}
+
+function buildUpgradeMessage(quota: QuotaInfo): string {
+  if (quota.plan === "free" && !quota.authorized) {
+    return [
+      `## AI 분석 무료 한도 초과`,
+      ``,
+      `무료 플랜의 월 ${FREE_TIER_LIMIT}회 AI 분석 한도를 모두 사용했습니다.`,
+      ``,
+      `### 계속 사용하려면:`,
+      ``,
+      `**1. 유료 플랜 구독** → [요금제 보기](${PRICING_URL})`,
+      `  - Dev ($9/월): AI 분석 200회/월`,
+      `  - Team ($29/사용자/월): AI 분석 2,000회/월`,
+      ``,
+      `**2. API 키 설정** (구독 후)`,
+      `\`\`\`bash`,
+      `export CLEANER_API_KEY="cc_live_your_key_here"`,
+      `\`\`\``,
+      ``,
+      `> 정적 분석(scan_file, scan_directory 등)은 무제한 무료입니다.`,
+    ].join("\n");
+  }
+
+  if (quota.plan === "invalid") {
+    return [
+      `## API 키가 유효하지 않습니다`,
+      ``,
+      `설정된 API 키가 만료되었거나 잘못되었습니다.`,
+      `[대시보드](${PRICING_URL})에서 키를 확인하거나 새로 발급받으세요.`,
+    ].join("\n");
+  }
+
+  if (!quota.authorized) {
+    return [
+      `## 월간 AI 분석 한도 초과`,
+      ``,
+      `현재 플랜(${quota.plan})의 월 ${quota.limit}회 한도를 모두 사용했습니다.`,
+      ``,
+      `[플랜 업그레이드](${PRICING_URL})로 한도를 늘릴 수 있습니다.`,
+    ].join("\n");
+  }
+
+  return "";
+}
+
 import { InvisibleCharScanner } from "./scanner/invisible";
 import { BidiScanner } from "./scanner/bidi";
 import { HomoglyphScanner } from "./scanner/homoglyph";
@@ -254,6 +371,15 @@ server.tool(
     file_path: z.string().describe("Path to the file to analyze with AI"),
   },
   async ({ file_path }) => {
+    // ===== Quota Check =====
+    const quota = await checkQuota();
+
+    if (!quota.authorized) {
+      return {
+        content: [{ type: "text" as const, text: buildUpgradeMessage(quota) }],
+      };
+    }
+
     try {
       const resolvedPath = path.resolve(file_path);
       const content = fs.readFileSync(resolvedPath, "utf-8");
@@ -263,6 +389,9 @@ server.tool(
 
       // Run AI analysis
       const aiFindings = await aiScanner.scanAsync(content, resolvedPath);
+
+      // Record usage
+      await recordUsage();
 
       // Merge findings
       const allFindings = [...staticResult.findings, ...aiFindings];
@@ -277,6 +406,11 @@ server.tool(
 
       const summary = buildSummary([result]);
       let output = `## AI Deep Analysis: ${path.basename(resolvedPath)}\n\n`;
+
+      // Show remaining quota
+      if (quota.remaining >= 0) {
+        output += `> 남은 AI 분석 횟수: ${quota.remaining - 1}/${quota.limit} (${quota.plan})\n\n`;
+      }
 
       if (aiFindings.length > 0) {
         output += `### AI Model Findings\n`;
