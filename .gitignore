@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.js.map
+*.d.ts.map
+.claude/settings.local.json
+
+# ML model artifacts (too large for git)
+ml/models/
+ml/data/

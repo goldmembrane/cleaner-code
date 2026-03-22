@@ -1,0 +1,40 @@
+{
+  "name": "cleaner-code",
+  "version": "1.0.0",
+  "description": "MCP server for detecting hidden malicious code patterns in AI-generated code",
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goldmembrane/cleaner-code.git"
+  },
+  "keywords": [
+    "mcp",
+    "security",
+    "code-analysis",
+    "unicode",
+    "trojan-source"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/goldmembrane/cleaner-code/issues"
+  },
+  "homepage": "https://github.com/goldmembrane/cleaner-code#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "onnxruntime-node": "^1.24.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
