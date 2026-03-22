@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cleaner-code — AI 코드 보안 분석</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">&#x1f6e1;</span> cleaner-code
+      </a>
+      <div class="nav-links">
+        <a href="#features">기능</a>
+        <a href="#pricing">요금제</a>
+        <a href="#faq">FAQ</a>
+        <a href="#" class="btn btn-sm btn-outline" id="loginBtn">로그인</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">AI 코드 보안의 새로운 기준</div>
+    <h1>AI가 쓴 코드,<br><span class="gradient-text">AI가 검증합니다.</span></h1>
+    <p class="hero-desc">
+      보이지 않는 유니코드 공격, Trojan Source, Glassworm 스테가노그래피,<br>
+      Rules File Backdoor까지 — 정적 분석과 AI 정밀 분석을 결합한 코드 위생 검사 MCP
+    </p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn btn-primary btn-lg">요금제 보기</a>
+      <a href="https://github.com/goldmembrane/cleaner-code" class="btn btn-ghost btn-lg" target="_blank">GitHub</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <strong>9</strong>
+        <span>탐지 카테고리</span>
+      </div>
+      <div class="stat">
+        <strong>6</strong>
+        <span>MCP Tools</span>
+      </div>
+      <div class="stat">
+        <strong>100%</strong>
+        <span>AI 탐지 정확도</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <h2 class="section-title">무엇을 탐지하나요?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">👻</div>
+        <h3>보이지 않는 문자</h3>
+        <p>Zero-Width Space, Soft Hyphen 등 30종 이상의 보이지 않는 유니코드 문자 탐지</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>BiDi / Trojan Source</h3>
+        <p>양방향 제어 문자로 코드 실행 순서를 시각적으로 위장하는 CVE-2021-42574 공격 탐지</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎭</div>
+        <h3>호모글리프</h3>
+        <p>키릴/그리스 문자가 라틴 변수명으로 위장하는 CVE-2021-42694 공격 탐지</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧬</div>
+        <h3>유니코드 스테가노그래피</h3>
+        <p>Glassworm 공격 패턴 — Variation Selector에 숨겨진 악성 페이로드 탐지</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Rules File Backdoor</h3>
+        <p>.cursorrules, CLAUDE.md 등 AI 설정 파일에 숨겨진 프롬프트 인젝션 탐지</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>의존성 검사</h3>
+        <p>Typosquatting, Slopsquatting, 악성 install script, 의심스러운 패키지 탐지</p>
+      </div>
+      <div class="feature-card highlight">
+        <div class="feature-icon">🧠</div>
+        <h3>AI 정밀 분석</h3>
+        <p>CodeBERT 기반 딥러닝 모델이 난독화된 악성 코드를 자동 분류 — 정적 규칙이 놓치는 위협 탐지</p>
+        <span class="badge">Pro</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>난독화 패턴</h3>
+        <p>eval+base64, 환경변수 유출, 리버스 쉘, 암호화폐 C2 채널 등 실전 공격 패턴 탐지</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section section-dark" id="pricing">
+    <h2 class="section-title">요금제</h2>
+    <p class="section-desc">정적 분석은 무료. AI 정밀 분석은 사용한 만큼만.</p>
+
+    <div class="toggle-wrap">
+      <button class="toggle-btn active" data-period="monthly">월간</button>
+      <button class="toggle-btn" data-period="yearly">연간 <span class="save-badge">20% 할인</span></button>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3>Community</h3>
+          <div class="price">
+            <span class="price-amount">$0</span>
+            <span class="price-period">/월</span>
+          </div>
+          <p class="pricing-desc">개인 개발자를 위한 무료 플랜</p>
+        </div>
+        <ul class="pricing-features">
+          <li>정적 분석 무제한</li>
+          <li>9개 카테고리 탐지</li>
+          <li>MCP 로컬 실행</li>
+          <li>AI 분석 월 10회</li>
+          <li class="disabled">API 키 발급</li>
+          <li class="disabled">CI/CD 통합</li>
+          <li class="disabled">팀 대시보드</li>
+        </ul>
+        <button class="btn btn-outline btn-block" onclick="handleFree()">무료로 시작</button>
+      </div>
+
+      <!-- Dev -->
+      <div class="pricing-card popular">
+        <div class="popular-badge">인기</div>
+        <div class="pricing-header">
+          <h3>Dev</h3>
+          <div class="price">
+            <span class="price-amount" data-monthly="$9" data-yearly="$7">$9</span>
+            <span class="price-period">/월</span>
+          </div>
+          <p class="pricing-desc">프리랜서와 소규모 프로젝트</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Community 전체 포함</li>
+          <li><strong>AI 분석 월 200회</strong></li>
+          <li>API 키 발급</li>
+          <li>실시간 패키지 평판 DB</li>
+          <li>이메일 지원</li>
+          <li class="disabled">CI/CD 통합</li>
+          <li class="disabled">팀 대시보드</li>
+        </ul>
+        <button class="btn btn-primary btn-block" onclick="handleCheckout('dev')">구독하기</button>
+      </div>
+
+      <!-- Team -->
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3>Team</h3>
+          <div class="price">
+            <span class="price-amount" data-monthly="$29" data-yearly="$23">$29</span>
+            <span class="price-period">/사용자/월</span>
+          </div>
+          <p class="pricing-desc">팀과 스타트업을 위한 플랜</p>
+        </div>
+        <ul class="pricing-features">
+          <li>Dev 전체 포함</li>
+          <li><strong>AI 분석 월 2,000회</strong></li>
+          <li>GitHub Actions 통합</li>
+          <li>PR 자동 스캔</li>
+          <li>팀 대시보드</li>
+          <li>Slack/Discord 알림</li>
+          <li>우선 지원</li>
+        </ul>
+        <button class="btn btn-outline btn-block" onclick="handleCheckout('team')">구독하기</button>
+      </div>
+
+    </div>
+
+    <!-- Enterprise -->
+    <div class="enterprise-banner">
+      <div class="enterprise-inner">
+        <div>
+          <h3>Enterprise</h3>
+          <p>On-premise 배포, 무제한 AI 분석, 컴플라이언스 리포트, SLA, 전담 지원</p>
+        </div>
+        <a href="mailto:contact@cleanercode.dev" class="btn btn-outline">문의하기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <h2 class="section-title">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>무료 플랜으로도 충분한가요?</summary>
+        <p>네. 정적 분석(보이지 않는 문자, BiDi, 호모글리프, 난독화 등 8개 스캐너)은 무제한 무료입니다. AI 정밀 분석만 월 10회 제한이 있습니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>AI 분석은 어떻게 다른가요?</summary>
+        <p>정적 분석은 알려진 패턴을 규칙으로 매칭합니다. AI 분석은 CodeBERT 딥러닝 모델이 코드의 의도를 판단해서 — 규칙에 없는 새로운 공격 패턴도 탐지할 수 있습니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>내 코드가 외부로 전송되나요?</summary>
+        <p>아닙니다. 정적 분석은 완전히 로컬에서 실행됩니다. AI 분석도 ONNX 모델이 로컬에서 실행되며, API 플랜을 사용할 경우에만 코드 스니펫이 서버로 전송됩니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>환불 정책은 어떻게 되나요?</summary>
+        <p>구독 후 14일 이내에 환불을 요청하시면 전액 환불해드립니다. Paddle을 통해 자동으로 처리됩니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary>어떤 AI 에디터를 지원하나요?</summary>
+        <p>MCP 프로토콜을 지원하는 모든 에디터에서 사용 가능합니다. Claude Code, Cursor, VS Code (Copilot) 등에서 바로 연결할 수 있습니다.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">&#x1f6e1;</span> cleaner-code
+        <p>AI 코드 보안 분석 MCP</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>제품</h4>
+          <a href="#features">기능</a>
+          <a href="#pricing">요금제</a>
+          <a href="https://github.com/goldmembrane/cleaner-code" target="_blank">GitHub</a>
+        </div>
+        <div>
+          <h4>지원</h4>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:contact@cleanercode.dev">문의</a>
+        </div>
+        <div>
+          <h4>법적 고지</h4>
+          <a href="/terms">이용약관</a>
+          <a href="/privacy">개인정보처리방침</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 cleaner-code. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Paddle.js -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
