@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+echo "=== cleaner-code Web — Cloudflare Pages Deploy ==="
+
+cd "$(dirname "$0")"
+
+# Copy static files to a build directory
+BUILD_DIR="./build"
+rm -rf "${BUILD_DIR}"
+mkdir -p "${BUILD_DIR}"
+
+cp -r ../web/public/* "${BUILD_DIR}/"
+cp -r functions/ "${BUILD_DIR}/functions/" 2>/dev/null || true
+
+echo "[1/2] Logging in to Cloudflare..."
+# wrangler login  # Run this once manually
+
+echo "[2/2] Deploying to Cloudflare Pages..."
+wrangler pages deploy "${BUILD_DIR}" --project-name cleaner-code
+
+echo ""
+echo "=== Deployed ==="
+echo "Set webhook secret: wrangler pages secret put PADDLE_WEBHOOK_SECRET --project-name cleaner-code"

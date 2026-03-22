@@ -1,0 +1,12 @@
+src/
+ml/models/
+ml/data/
+web/
+deploy/
+node_modules/
+.git/
+.claude/
+*.ts
+!*.d.ts
+tsconfig.json
+.gitignore

@@ -1,0 +1,40 @@
+{
+  "name": "cleaner-code",
+  "displayName": "Cleaner Code — AI Code Security Scanner",
+  "description": "Detects hidden malicious code patterns: invisible Unicode, Trojan Source (BiDi), homoglyphs, Glassworm steganography, Rules File Backdoor, typosquatting, obfuscation, and AI-powered deep analysis.",
+  "version": "1.0.0",
+  "author": "goldmembrane",
+  "license": "ISC",
+  "repository": "https://github.com/goldmembrane/cleaner-code",
+  "icon": "shield",
+  "categories": ["security", "code-analysis", "developer-tools"],
+  "runtime": "node",
+  "command": "npx",
+  "args": ["-y", "cleaner-code"],
+  "tools": [
+    {
+      "name": "scan_file",
+      "description": "Scan a single file for hidden malicious code patterns"
+    },
+    {
+      "name": "scan_directory",
+      "description": "Recursively scan a directory for threats across all source files"
+    },
+    {
+      "name": "scan_rules_file",
+      "description": "Scan AI config files for prompt injection and Rules File Backdoor attacks"
+    },
+    {
+      "name": "check_dependencies",
+      "description": "Check package.json for typosquatting, suspicious install scripts, and dependency risks"
+    },
+    {
+      "name": "ai_analyze",
+      "description": "Deep AI analysis using CodeBERT model to classify code as malicious or benign"
+    },
+    {
+      "name": "explain_finding",
+      "description": "Get detailed explanation of a threat category with attack scenarios and remediation"
+    }
+  ]
+}

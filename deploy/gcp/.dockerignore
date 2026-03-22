@@ -1,0 +1,10 @@
+node_modules/
+src/
+web/
+deploy/
+.git/
+.claude/
+ml/data/
+ml/models/best/
+*.ts
+!*.d.ts

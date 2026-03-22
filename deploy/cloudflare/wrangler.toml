@@ -1,0 +1,9 @@
+name = "cleaner-code"
+compatibility_date = "2024-12-01"
+pages_build_output_dir = "../web/public"
+
+# Environment variables (set via `wrangler secret put`)
+# PADDLE_WEBHOOK_SECRET = "your_paddle_webhook_secret"
+
+[vars]
+ENVIRONMENT = "production"
