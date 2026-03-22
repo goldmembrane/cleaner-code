@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이용약관 — CodeSafer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .legal { max-width: 760px; margin: 0 auto; padding: 120px 24px 80px; }
+    .legal h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .legal .updated { color: var(--text-muted); font-size: 14px; margin-bottom: 40px; }
+    .legal h2 { font-size: 20px; font-weight: 700; margin-top: 36px; margin-bottom: 12px; }
+    .legal p, .legal li { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 12px; }
+    .legal ul { padding-left: 24px; margin-bottom: 16px; }
+    .legal a { color: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/ko/" class="logo"><span class="logo-icon">&#x1f6e1;</span> CodeSafer</a>
+      <div class="nav-links">
+        <a href="/ko/#features">기능</a>
+        <a href="/ko/#pricing">요금제</a>
+        <a href="/ko/#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="legal">
+    <h1>이용약관</h1>
+    <p class="updated">최종 수정일: 2026년 3월 22일</p>
+
+    <p>본 이용약관("약관")은 Palette Box(이하 "회사")가 CodeSafer 브랜드로 제공하는 제품 및 서비스의 이용에 관한 사항을 규정합니다. codesafer.org 웹사이트, cleaner-code MCP 서버, AI 분석 API(이하 통칭 "서비스")를 이용함으로써 본 약관에 동의하게 됩니다.</p>
+
+    <h2>1. 서비스 설명</h2>
+    <p>CodeSafer는 소스 코드에 숨겨진 악성 패턴을 탐지하는 코드 보안 분석 도구를 제공합니다. 서비스에는 다음이 포함됩니다:</p>
+    <ul>
+      <li><strong>정적 분석:</strong> 유니코드 공격, 난독화, 의존성 위험 등을 위한 로컬 패턴 기반 스캐닝</li>
+      <li><strong>AI 분석:</strong> CodeBERT를 활용한 클라우드 기반 딥러닝 위협 탐지</li>
+      <li><strong>MCP 서버:</strong> Model Context Protocol을 통한 AI 코딩 도구와의 연동</li>
+    </ul>
+
+    <h2>2. 계정 및 API 키</h2>
+    <p>유료 플랜은 Paddle을 통해 관리되는 유효한 구독이 필요합니다. 구독 시 프리미엄 기능에 접근하기 위한 API 키가 발급됩니다. API 키의 기밀 유지는 이용자의 책임입니다. 권한 없는 제3자와 API 키를 공유하지 마세요.</p>
+
+    <h2>3. 구독 플랜</h2>
+    <p>다음과 같은 플랜을 제공합니다:</p>
+    <ul>
+      <li><strong>Community (무료):</strong> 무제한 정적 분석, 세션당 AI 분석 10회</li>
+      <li><strong>Dev ($9/월):</strong> 월 200회 AI 분석, API 접근, 이메일 지원</li>
+      <li><strong>Team ($29/사용자/월):</strong> 월 2,000회 AI 분석, CI/CD 통합, 우선 지원</li>
+      <li><strong>Enterprise:</strong> 맞춤 가격, 온프레미스 배포, 무제한 분석</li>
+    </ul>
+    <p>가격은 USD 기준이며 Paddle이 결정하는 해당 세금이 적용될 수 있습니다.</p>
+
+    <h2>4. 결제 조건</h2>
+    <p>모든 결제는 판매 기록 대행자인 Paddle이 처리합니다. 구독 시 <a href="https://www.paddle.com/legal/terms" target="_blank">Paddle의 이용약관</a>에도 동의하게 됩니다. 구독은 선택한 결제 주기에 따라 월간 또는 연간으로 청구됩니다. Paddle의 고객 포털을 통해 언제든지 구독을 취소할 수 있습니다.</p>
+
+    <h2>5. 환불 정책</h2>
+    <p>모든 유료 플랜에 <strong>14일 환불 보증</strong>을 제공합니다. 서비스에 만족하지 않는 경우, 최초 구매 또는 갱신 후 14일 이내에 전액 환불을 요청할 수 있습니다. 환불은 Paddle을 통해 처리되며 보통 5~10 영업일 이내에 반영됩니다.</p>
+    <p>환불을 요청하려면 구독 정보와 함께 <a href="mailto:support@codesafer.org">support@codesafer.org</a>로 연락해 주세요.</p>
+    <p>14일 기간 이후의 환불은 개별 사안에 따라 회사의 재량으로 제공됩니다.</p>
+
+    <h2>6. 이용 제한</h2>
+    <p>이용자는 다음 행위를 하지 않을 것에 동의합니다:</p>
+    <ul>
+      <li>불법적인 목적으로 서비스를 사용하는 행위</li>
+      <li>AI 모델을 리버스 엔지니어링, 디컴파일 또는 디어셈블하려는 행위</li>
+      <li>API 키를 공유하거나 재배포하는 행위</li>
+      <li>제한을 우회하기 위한 자동화 수단으로 플랜 사용량 한도를 초과하는 행위</li>
+      <li>경쟁 제품 개발에 서비스를 이용하는 행위</li>
+      <li>서비스 인프라를 방해하거나 중단시키는 행위</li>
+    </ul>
+
+    <h2>7. 지식재산권</h2>
+    <p>소프트웨어, AI 모델, 탐지 알고리즘, 문서를 포함한 서비스는 Palette Box가 소유하며 지식재산권법에 의해 보호됩니다. 구독은 플랜에 따라 서비스를 사용할 수 있는 제한적이고, 비독점적이며, 양도 불가능한 라이선스를 부여합니다.</p>
+
+    <h2>8. 보증 면책</h2>
+    <p>서비스는 명시적이든 묵시적이든 어떠한 종류의 보증 없이 "있는 그대로" 및 "이용 가능한 그대로" 제공됩니다. 분석이 모든 보안 위협을 탐지하거나 서비스가 중단 없이 또는 오류 없이 제공될 것을 보장하지 않습니다. CodeSafer는 보조적인 보안 도구이며 코드 보안 검토의 유일한 수단이 되어서는 안 됩니다.</p>
+
+    <h2>9. 책임 제한</h2>
+    <p>법률이 허용하는 최대 범위 내에서, Palette Box는 서비스 사용으로 인해 발생하는 간접적, 부수적, 특별, 결과적 또는 징벌적 손해(이익, 데이터 또는 사업 기회 손실 포함)에 대해 책임을 지지 않습니다. 회사의 총 책임은 청구일 이전 12개월 동안 서비스에 대해 지불한 금액을 초과하지 않습니다.</p>
+
+    <h2>10. 약관 변경</h2>
+    <p>회사는 언제든지 본 약관을 변경할 권리를 보유합니다. 중요한 변경 사항은 웹사이트에 업데이트된 약관을 게시하여 안내합니다. 변경 후 서비스를 계속 사용하면 새로운 약관에 동의한 것으로 간주됩니다.</p>
+
+    <h2>11. 해지</h2>
+    <p>이용자가 본 약관을 위반할 경우 서비스 접근을 중단하거나 해지할 수 있습니다. 이용자는 언제든지 구독을 취소할 수 있습니다. 해지 시 API 키가 비활성화되고 프리미엄 기능에 대한 접근이 중단됩니다.</p>
+
+    <h2>12. 준거법</h2>
+    <p>본 약관은 대한민국 법률에 의해 규율되고 해석됩니다.</p>
+
+    <h2>13. 문의</h2>
+    <p>본 약관에 대한 질문이 있으시면 아래로 연락해 주세요:</p>
+    <ul>
+      <li>이메일: <a href="mailto:support@codesafer.org">support@codesafer.org</a></li>
+      <li>웹사이트: <a href="https://codesafer.org">https://codesafer.org</a></li>
+    </ul>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      &copy; 2026 Palette Box. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
