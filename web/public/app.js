@@ -102,6 +102,7 @@ function handleCheckoutComplete(data) {
 function initToggle() {
   const wrap = document.querySelector('.toggle-wrap');
   const priceAmounts = document.querySelectorAll('.price-amount[data-monthly]');
+  const annualNotes = document.querySelectorAll('.price-annual-note[data-monthly]');
 
   wrap.addEventListener('click', (e) => {
     const btn = e.target.closest('.toggle-btn');
@@ -113,6 +114,9 @@ function initToggle() {
     const period = btn.dataset.period;
     priceAmounts.forEach((el) => {
       el.textContent = el.dataset[period];
+    });
+    annualNotes.forEach((el) => {
+      el.textContent = el.dataset[period] || '';
     });
   });
 }
