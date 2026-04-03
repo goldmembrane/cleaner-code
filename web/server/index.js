@@ -13,7 +13,8 @@ app.use(express.json());
 app.use('/api/paddle/webhook', express.raw({ type: 'application/json' }));
 
 // ===== Paddle Webhook =====
-// TODO: Set your Paddle webhook secret key
+// Production: handled by Cloudflare Pages Functions + D1
+// This Express server is for local development only
 const PADDLE_WEBHOOK_SECRET = process.env.PADDLE_WEBHOOK_SECRET || '';
 
 function verifyPaddleWebhook(req) {

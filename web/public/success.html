@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription Complete — CodeSafer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .success-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .success-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      text-align: center;
+      max-width: 560px;
+      width: 100%;
+    }
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(46, 213, 115, 0.1);
+      border: 2px solid var(--success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 36px;
+    }
+    .success-card h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .success-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    /* API Key display */
+    .key-section {
+      margin: 28px 0;
+      text-align: left;
+    }
+    .key-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .key-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 4px;
+    }
+    .key-value {
+      flex: 1;
+      padding: 14px 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: var(--primary);
+      word-break: break-all;
+      line-height: 1.5;
+      user-select: all;
+    }
+    .key-copy-btn {
+      flex-shrink: 0;
+      padding: 12px 20px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .key-copy-btn:hover {
+      background: var(--primary-hover);
+    }
+    .key-copy-btn.copied {
+      background: var(--success);
+    }
+
+    /* Warning */
+    .warning-box {
+      background: rgba(255, 165, 2, 0.08);
+      border: 1px solid rgba(255, 165, 2, 0.25);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin: 20px 0 28px;
+      text-align: left;
+    }
+    .warning-box p {
+      color: var(--warning);
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 4px;
+      line-height: 1.6;
+    }
+    .warning-box span {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Setup guide */
+    .setup-guide {
+      text-align: left;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .setup-guide h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .setup-guide pre {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .setup-guide pre .hl {
+      color: var(--primary);
+    }
+
+    .btn-home {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .btn-home:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+
+    /* Loading state */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 40px 0;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-text {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Error state */
+    .error-msg {
+      color: var(--danger);
+      font-size: 14px;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-page">
+    <div class="success-card">
+      <div class="success-icon">&#x2714;</div>
+      <h1>Thank you for subscribing!</h1>
+
+      <!-- Loading state -->
+      <div id="loading-state" class="loading">
+        <div class="spinner"></div>
+        <span class="loading-text">Generating your API key...</span>
+      </div>
+
+      <!-- Key display (hidden until loaded) -->
+      <div id="key-state" style="display:none;">
+        <div class="key-section">
+          <div class="key-label">Your API Key</div>
+          <div class="key-box">
+            <span class="key-value" id="api-key-value"></span>
+            <button class="key-copy-btn" id="copy-btn" onclick="copyKey()">Copy</button>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <p>Save this key now — it will not be shown again.</p>
+          <span>Once you close or leave this page, there is no way to retrieve this key. If lost, you'll need to contact support for a reissue.</span>
+        </div>
+
+        <div class="setup-guide">
+          <h3>Add to your MCP config</h3>
+          <pre><code>{
+  "mcpServers": {
+    "cleaner-code": {
+      "command": "npx",
+      "args": ["-y", "cleaner-code"],
+      "env": {
+        "<span class="hl">CLEANER_API_KEY</span>": "<span class="hl" id="config-key">your-key</span>"
+      }
+    }
+  }
+}</code></pre>
+        </div>
+
+        <a href="/" class="btn-home">Back to Home</a>
+      </div>
+
+      <!-- Error state -->
+      <div id="error-state" style="display:none;">
+        <p class="error-msg" id="error-msg"></p>
+        <a href="/" class="btn-home">Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function fetchApiKey() {
+      const customerId = sessionStorage.getItem('checkout_customer_id');
+
+      if (!customerId) {
+        showError('No checkout session found. If you just completed a payment, please contact support.');
+        return;
+      }
+
+      // Retry up to 10 times (webhook may arrive with delay)
+      for (let attempt = 0; attempt < 10; attempt++) {
+        try {
+          const res = await fetch('/api/get-key', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ customer_id: customerId }),
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            if (data.found) {
+              showKey(data.api_key);
+              sessionStorage.removeItem('checkout_customer_id');
+              sessionStorage.removeItem('checkout_transaction_id');
+              return;
+            }
+          }
+        } catch (e) {
+          // ignore, retry
+        }
+
+        // Wait before retrying
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+
+      showError('Could not retrieve your API key. Your subscription is active — please contact support at paletteboxofficial@gmail.com to receive your key.');
+    }
+
+    function showKey(key) {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('key-state').style.display = 'block';
+      document.getElementById('api-key-value').textContent = key;
+      document.getElementById('config-key').textContent = key;
+    }
+
+    function showError(msg) {
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('error-state').style.display = 'block';
+      document.getElementById('error-msg').textContent = msg;
+    }
+
+    function copyKey() {
+      const key = document.getElementById('api-key-value').textContent;
+      navigator.clipboard.writeText(key).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    fetchApiKey();
+  </script>
+</body>
+</html>

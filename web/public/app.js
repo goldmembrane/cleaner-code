@@ -1,21 +1,15 @@
 // ===== Paddle Configuration =====
-// TODO: Replace with your actual Paddle credentials
 const PADDLE_CONFIG = {
-  // Paddle environment: 'sandbox' for testing, remove for production
-  environment: 'sandbox',
+  clientToken: 'live_8d1ecb79cacb43b9b3f240d7240',
 
-  // Your Paddle client-side token (from Paddle Dashboard > Developer Tools > Authentication)
-  clientToken: 'test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-
-  // Paddle Price IDs (create these in Paddle Dashboard > Catalog > Prices)
   prices: {
     dev: {
-      monthly: 'pri_dev_monthly_placeholder',    // $9/month
-      yearly: 'pri_dev_yearly_placeholder',      // $7/month billed yearly ($84/year)
+      monthly: 'pri_01kn8p5gw6h4r2xabpxsxj9fqv',    // $9/month
+      yearly: 'pri_01kn8p62rxr3zkbfp74w0s42zx',      // $7/month billed yearly ($84/year)
     },
     team: {
-      monthly: 'pri_team_monthly_placeholder',   // $29/user/month
-      yearly: 'pri_team_yearly_placeholder',     // $23/user/month billed yearly ($276/year)
+      monthly: 'pri_01kn8p8f9zh60q99h4me0fw0mz',   // $29/user/month
+      yearly: 'pri_01kn8p96an9z0b55a012grnay4',     // $23/user/month billed yearly ($276/year)
     },
   },
 };
@@ -30,7 +24,6 @@ function initPaddle() {
   try {
     Paddle.Initialize({
       token: PADDLE_CONFIG.clientToken,
-      environment: PADDLE_CONFIG.environment, // Remove this line for production
       eventCallback: handlePaddleEvent,
     });
   } catch (e) {
@@ -69,7 +62,6 @@ function handleCheckout(plan) {
       displayMode: 'overlay',
       theme: 'dark',
       locale: 'ko',
-      successUrl: window.location.origin + '/success',
       allowLogout: true,
     },
     customData: {
@@ -89,13 +81,9 @@ function handleFree() {
 
 // ===== Checkout Complete =====
 function handleCheckoutComplete(data) {
-  showToast('Subscription complete! Your API key will be sent via email.', 'success');
-
-  // Track conversion (optional analytics)
-  console.log('Checkout completed:', {
-    transactionId: data?.transaction_id,
-    plan: data?.custom_data?.plan,
-  });
+  sessionStorage.setItem('checkout_customer_id', data?.customer?.id || '');
+  sessionStorage.setItem('checkout_transaction_id', data?.transaction_id || '');
+  window.location.href = '/success.html';
 }
 
 // ===== Billing Period Toggle =====

@@ -1,9 +1,14 @@
 name = "cleaner-code"
 compatibility_date = "2024-12-01"
-pages_build_output_dir = "../web/public"
-
-# Environment variables (set via `wrangler secret put`)
-# PADDLE_WEBHOOK_SECRET = "your_paddle_webhook_secret"
+pages_build_output_dir = "../../web/public"
+pages_functions_dir = "../../functions"
 
 [vars]
 ENVIRONMENT = "production"
+# Secrets (set via `wrangler secret put`):
+# PADDLE_WEBHOOK_SECRET
+
+[[d1_databases]]
+binding = "DB"
+database_name = "codesafer-db"
+database_id = "108d939f-3d1b-4cf4-9736-93785b975164"
