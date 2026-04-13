@@ -1,0 +1,36 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "name": "codesafer",
+  "description": "AI code security scanner MCP server. Detects 9 categories of threats in AI-generated code using static analysis plus CodeBERT deep learning.",
+  "repository": "https://github.com/goldmembrane/cleaner-code",
+  "homepage": "https://codesafer.org/",
+  "license": "ISC",
+  "runtime": "node",
+  "transport": "stdio",
+  "tools": [
+    {
+      "name": "scan_file",
+      "description": "Scan a single file for hidden malicious code patterns"
+    },
+    {
+      "name": "scan_directory",
+      "description": "Recursively scan a directory for security threats"
+    },
+    {
+      "name": "scan_rules_file",
+      "description": "Scan AI config files for Rules File Backdoor attacks"
+    },
+    {
+      "name": "check_dependencies",
+      "description": "Check package.json for typosquatting"
+    },
+    {
+      "name": "ai_analyze",
+      "description": "Deep AI analysis using CodeBERT"
+    },
+    {
+      "name": "explain_finding",
+      "description": "Detailed explanation of threat categories"
+    }
+  ]
+}
