@@ -34,7 +34,7 @@
     "ai-security"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "engines": {
     "node": ">=20.0.0"
