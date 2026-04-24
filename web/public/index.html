@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeSafer — AI Code Security Analysis</title>
   <meta name="description" content="Detect hidden malicious patterns in AI-generated code. Unicode attacks, Trojan Source, Glassworm steganography, Rules File Backdoor — static analysis + AI deep analysis MCP server.">
+
+  <!-- OG Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://codesafer.org/">
+  <meta property="og:title" content="CodeSafer - AI Code Security Scanner">
+  <meta property="og:description" content="MCP server detecting invisible Unicode, Trojan Source, supply chain attacks in AI-generated code. Free, local, works with Claude Code, Cursor, Copilot.">
+  <meta property="og:image" content="https://codesafer.org/og-image.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="CodeSafer">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@codesafer">
+  <meta name="twitter:title" content="CodeSafer - AI Code Security Scanner">
+  <meta name="twitter:description" content="Detect hidden threats in AI-generated code. 9 categories, free, runs locally.">
+  <meta name="twitter:image" content="https://codesafer.org/og-image.png">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YSJVR1BR0B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YSJVR1BR0B');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -260,6 +286,77 @@
       &copy; 2026 Palette Box. All rights reserved. | Payments processed by <a href="https://www.paddle.com" target="_blank">Paddle</a> | <a href="/ko/">한국어</a>
     </div>
   </footer>
+
+  <!-- X Follow Bar -->
+  <style>
+  .x-follow-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #15202b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    z-index: 9999;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+  }
+  .x-follow-bar.hidden { transform: translateY(100%); }
+  .x-follow-bar span { opacity: 0.9; }
+  .x-follow-bar a {
+    background: #1d9bf0;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .x-follow-bar a:hover { background: #1a8cd8; }
+  .x-follow-bar .x-close {
+    background: none;
+    border: none;
+    color: #8899a6;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  </style>
+  <div class="x-follow-bar hidden" id="xFollowBar">
+    <span>🔒 AI code security tips on X</span>
+    <a href="https://x.com/codesafer" target="_blank" rel="noopener">Follow on X</a>
+    <button class="x-close" onclick="document.getElementById('xFollowBar').classList.add('hidden')">&times;</button>
+  </div>
+  <script>
+  (function() {
+    var bar = document.getElementById('xFollowBar');
+    if (!bar) return;
+    if (localStorage.getItem('x_follow_dismissed')) {
+      bar.classList.add('hidden');
+      return;
+    }
+    var shown = false;
+    window.addEventListener('scroll', function() {
+      if (shown) return;
+      var scrollPct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (scrollPct > 0.3) {
+        bar.classList.remove('hidden');
+        shown = true;
+      }
+    });
+    bar.querySelector('.x-close').addEventListener('click', function() {
+      localStorage.setItem('x_follow_dismissed', '1');
+    });
+  })();
+  </script>
 
   <!-- Paddle.js -->
   <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
