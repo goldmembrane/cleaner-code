@@ -13,3 +13,5 @@ deploy/cloudflare/build/
 
 # Internal documents (not for public deployment)
 enterprise-pricing-guide.html
+
+.vercel
