@@ -134,13 +134,7 @@ function showToast(message, type = 'info') {
 
 // ===== Login Button =====
 function initLogin() {
-  const loginBtn = document.getElementById('loginBtn');
-  if (loginBtn) {
-    loginBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showToast('Sign-in feature coming soon.', 'info');
-    });
-  }
+  // Login now handled via /account.html link
 }
 
 // ===== Smooth scroll for nav links =====

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 계정 — CodeSafer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .account-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 88px 24px 40px;
+    }
+    .account-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      max-width: 520px;
+      width: 100%;
+    }
+    .account-card h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .account-card .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { outline: none; border-color: var(--primary); }
+    .form-input::placeholder { color: var(--text-dim); }
+    .dashboard { margin-top: 28px; }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+    .info-value { font-size: 14px; font-weight: 600; }
+    .status-active { color: var(--success); }
+    .status-canceled { color: var(--danger); }
+    .status-paused { color: var(--warning); }
+    .key-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-top: 8px;
+    }
+    .key-value {
+      flex: 1;
+      padding: 12px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--primary);
+      word-break: break-all;
+    }
+    .usage-bar-wrap { margin-top: 8px; }
+    .usage-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .usage-bar-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+    .usage-bar-fill.high { background: var(--warning); }
+    .usage-bar-fill.full { background: var(--danger); }
+    .usage-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .error-msg {
+      color: var(--danger);
+      font-size: 14px;
+      margin-top: 16px;
+    }
+    .spinner-sm {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 640px) {
+      .account-card { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/ko/" class="logo">
+        <span class="logo-icon">&#x1f6e1;</span> CodeSafer
+      </a>
+      <div class="nav-links">
+        <a href="/ko/#features">기능</a>
+        <a href="/ko/#pricing">요금제</a>
+        <a href="/ko/account.html" class="btn btn-sm btn-outline">내 계정</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="account-page">
+    <div class="account-card">
+
+      <!-- Login Form -->
+      <div id="login-section">
+        <h1>내 계정</h1>
+        <p class="subtitle">구독 시 사용한 이메일을 입력하세요.</p>
+        <div class="form-group">
+          <label class="form-label">이메일</label>
+          <input type="email" class="form-input" id="email-input" placeholder="you@example.com" autofocus>
+        </div>
+        <button class="btn btn-primary btn-block" id="lookup-btn" onclick="lookupAccount()">
+          계정 조회
+        </button>
+        <p class="error-msg" id="error-msg" style="display:none;"></p>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="dashboard-section" style="display:none;">
+        <h1>내 계정</h1>
+        <p class="subtitle" id="user-email"></p>
+
+        <div class="dashboard">
+          <div class="info-row">
+            <span class="info-label">플랜</span>
+            <span class="info-value" id="user-plan"></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">결제 주기</span>
+            <span class="info-value" id="user-period"></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">상태</span>
+            <span class="info-value" id="user-status"></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">구독일</span>
+            <span class="info-value" id="user-created"></span>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <label class="form-label">API 키</label>
+          <div class="key-box">
+            <span class="key-value" id="api-key-value"></span>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <label class="form-label">AI 분석 사용량 (이번 달)</label>
+          <div class="usage-bar-wrap">
+            <div class="usage-bar">
+              <div class="usage-bar-fill" id="usage-bar-fill" style="width:0%"></div>
+            </div>
+            <div class="usage-text" id="usage-text">0 / 200 사용</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary btn-block" id="manage-btn" onclick="openPortal()">
+            구독 관리
+          </button>
+          <button class="btn btn-outline btn-block" onclick="logout()">로그아웃</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let accountData = null;
+
+    async function lookupAccount() {
+      const email = document.getElementById('email-input').value.trim();
+      if (!email) return;
+
+      const btn = document.getElementById('lookup-btn');
+      const errEl = document.getElementById('error-msg');
+      errEl.style.display = 'none';
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-sm"></span>조회 중...';
+
+      try {
+        const res = await fetch('/api/account', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.found) {
+          errEl.textContent = '해당 이메일로 등록된 구독이 없습니다.';
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = '계정 조회';
+          return;
+        }
+
+        accountData = data;
+        showDashboard(data);
+      } catch (e) {
+        errEl.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = '계정 조회';
+      }
+    }
+
+    const STATUS_KO = { active: '활성', canceled: '해지됨', paused: '일시정지' };
+    const PLAN_KO = { dev: 'Dev', team: 'Team', unknown: '알 수 없음' };
+
+    function showDashboard(d) {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('dashboard-section').style.display = 'block';
+
+      document.getElementById('user-email').textContent = d.email;
+      document.getElementById('user-plan').textContent = PLAN_KO[d.plan] || d.plan;
+      document.getElementById('user-period').textContent = d.period === 'yearly' ? '연간' : '월간';
+
+      const statusEl = document.getElementById('user-status');
+      statusEl.textContent = STATUS_KO[d.status] || d.status;
+      statusEl.className = 'info-value status-' + d.status;
+
+      document.getElementById('user-created').textContent = d.created_at ? d.created_at.split('T')[0] : '—';
+      document.getElementById('api-key-value').textContent = d.masked_api_key;
+
+      const used = d.usage_used || 0;
+      const limit = d.usage_limit || 200;
+      const pct = Math.min(100, Math.round((used / limit) * 100));
+      const bar = document.getElementById('usage-bar-fill');
+      bar.style.width = pct + '%';
+      bar.className = 'usage-bar-fill' + (pct >= 100 ? ' full' : pct >= 80 ? ' high' : '');
+      document.getElementById('usage-text').textContent = used + ' / ' + limit + ' 사용';
+    }
+
+    async function openPortal() {
+      if (!accountData) return;
+      const btn = document.getElementById('manage-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-sm"></span>열는 중...';
+
+      try {
+        const res = await fetch('/api/portal-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: accountData.email }),
+        });
+        const data = await res.json();
+
+        if (res.ok && data.url) {
+          window.location.href = data.url;
+          return;
+        }
+        alert(data.error || '구독 관리 페이지를 열 수 없습니다.');
+      } catch (e) {
+        alert('오류가 발생했습니다. 다시 시도해주세요.');
+      }
+      btn.disabled = false;
+      btn.textContent = '구독 관리';
+    }
+
+    function logout() {
+      accountData = null;
+      document.getElementById('dashboard-section').style.display = 'none';
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('email-input').value = '';
+      document.getElementById('error-msg').style.display = 'none';
+    }
+
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') lookupAccount();
+    });
+  </script>
+
+</body>
+</html>
